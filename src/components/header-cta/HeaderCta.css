@@ -1,0 +1,9 @@
+.header-cta-panel {
+	background-color: var(--color-main);
+	border-radius: var(--border-radius);
+	padding: var(--padding-main-block);
+}
+
+.header-cta-panel>*:not(:last-child) {
+	margin-bottom: var(--offset-element);
+}
