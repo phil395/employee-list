@@ -1,4 +1,6 @@
 export interface IHeaderCta {
 	setSearchValue: (employeeName: string) => {};
-	setFilterValue: () => {};
+	setFilterValue: (value: FilterValue) => {};
 }
+
+export type FilterValue = 'all' | 'award' | 'salary';
