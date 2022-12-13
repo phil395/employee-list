@@ -1,4 +1,4 @@
 export interface IHeaderCta {
-	setSearchValue: () => {};
+	setSearchValue: (employeeName: string) => {};
 	setFilterValue: () => {};
 }

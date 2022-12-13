@@ -1,5 +1,6 @@
 import type { FC } from "react";
-import { IHeaderCta } from "../../interfaces/IHeaderCta";
+import { Search } from "../search/Search";
+import type { IHeaderCta } from "../../interfaces/IHeaderCta";
 
 import './HeaderCta.css';
 
