@@ -1,0 +1,64 @@
+.filter-btns {
+	color: var(--color-secondary);
+}
+
+.filter-btns button {
+	background-color: none;
+}
+
+button.filter-btns--selected {
+	color: #000;
+	background-color: var(--color-secondary);
+}
+
+@media (min-width: 441px) {
+	.filter-btns {
+		display: inline-flex;
+	}
+
+	.filter-btns button {
+		padding: calc(4px + 1vmin) calc(10px + 1vmin);
+		border: 1px solid var(--color-secondary);
+	}
+
+	.filter-btns button:not(:last-child) {
+		border-right: none;
+	}
+
+	.filter-btns button:first-child {
+		border-bottom-left-radius: var(--border-radius);
+		border-top-left-radius: var(--border-radius);
+	}
+
+	.filter-btns button:last-child {
+		border-bottom-right-radius: var(--border-radius);
+		border-top-right-radius: var(--border-radius);
+	}
+}
+
+@media (max-width: 440px) {
+	.filter-btns {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.filter-btns button {
+		padding: 12px;
+		display: block;
+		border: 1px solid var(--color-secondary);
+	}
+
+	.filter-btns button:not(:last-child) {
+		border-bottom: none;
+	}
+
+	.filter-btns button:first-child {
+		border-top-left-radius: var(--border-radius);
+		border-top-right-radius: var(--border-radius);
+	}
+
+	.filter-btns button:last-child {
+		border-bottom-right-radius: var(--border-radius);
+		border-bottom-left-radius: var(--border-radius);
+	}
+}

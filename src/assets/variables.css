@@ -1,0 +1,12 @@
+:root {
+	--offset-main-block: calc(15px + 2vmin);
+	--padding-main-block: calc(10px + 2vmin);
+
+	--offset-element: calc(7px + 2vmin);
+
+	--border-radius: 10px;
+
+	--color-main: #3d5a80;
+	--color-secondary: azure;
+
+}

@@ -1,0 +1,4 @@
+.employees-list {
+	border-radius: var(--border-radius);
+	border: 1px solid var(--color-main);
+}
