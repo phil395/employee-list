@@ -1,7 +1,12 @@
 // import { Action } from "../interfaces/IReducerActions";
 // import type { ReducerAction } from "../interfaces/IReducerActions";
-import type { IReducerState } from "../interfaces/IReducerState";
+// import type { IReducerState } from "../interfaces/IReducerState";
+import { IEmployee } from "../interfaces/IEmployee";
 import { ActionType, ReducerAction } from "./actions";
+
+export interface IReducerState {
+	employees: IEmployee[];
+}
 
 export const reducer = (state: IReducerState, action: ReducerAction): IReducerState => {
 	switch (action.type) {

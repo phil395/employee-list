@@ -11,7 +11,7 @@ import { initReducer } from './reducer/init';
 import { reducer } from './reducer/reducer';
 import { curry } from './utils/curry';
 
-const MIN_SALARY_FILTER_VALUE = 1_000;
+export const MIN_SALARY_FILTER_VALUE = 1_000;
 
 export const App = () => {
   // todo: переписать тип state в reducer - сделать его IEmployee[]
@@ -43,7 +43,7 @@ export const App = () => {
       default:
       case 'all': return filterBySearchValue(employees.employees);
     }
-  }, []);
+  }, [employees, searchValue, filterValue]);
 
   const employeeActions = useMemo(() => bindActions(dispatch), []);
 
