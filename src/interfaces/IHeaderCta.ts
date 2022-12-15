@@ -2,6 +2,6 @@
 export type FilterValue = 'all' | 'award' | 'salary';
 
 export interface IHeaderCta {
-	setSearchValue: (employeeName: string) => {};
-	setFilterValue: (value: FilterValue) => {};
+	setSearchValue: React.Dispatch<React.SetStateAction<string>>;
+	setFilterValue: React.Dispatch<React.SetStateAction<FilterValue>>;
 }

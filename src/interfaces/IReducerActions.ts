@@ -1,6 +1,5 @@
-import { IEmployee } from "./IEmployee";
-import { ToggleableAchievement } from "./IEmpolyeeActions";
-// export type ToggleableAchievement = Extract<keyof IEmployee, 'bonus' | 'award'>;
+import type { IEmployee, ToggleableAchievement } from "./IEmployee";
+
 
 export const enum Action {
 	ToggleAchievement,
