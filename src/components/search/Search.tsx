@@ -9,8 +9,9 @@ export const Search: FC<Props> = ({ setSearchValue }) => {
 	const [value, setValue] = useState('');
 
 	const onChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-		setValue(e.target.value);
-		setSearchValue(e.target.value);
+		const inputValue = e.target.value.toLowerCase();
+		setValue(inputValue);
+		setSearchValue(inputValue);
 	};
 
 	return (
