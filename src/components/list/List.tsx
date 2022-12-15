@@ -13,10 +13,10 @@ interface Props {
 export const List: FC<Props> = ({ employees, employeeActions }) => {
 
 	return (
-		<>
+		<ul className="employees-list">
 			{employees.length
-				? employees.map(employee => <ListItem {...employee} employeeActions={employeeActions} />)
+				? employees.map(employee => <ListItem key={employee.id} {...employee} employeeActions={employeeActions} />)
 				: <div style={{ padding: 'calc(12.5px + 1.5vmin)' }}>Data not founded</div>}
-		</>
+		</ul>
 	);
 };
