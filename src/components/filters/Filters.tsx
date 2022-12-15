@@ -1,5 +1,5 @@
 import { FC, useCallback, useState } from "react";
-import { MIN_SALARY_FILTER_VALUE } from "../../App";
+import { MIN_SALARY_FILTER_VALUE } from "../../hook/useApp";
 import type { FilterValue, IHeaderCta } from "../../interfaces/IHeaderCta";
 
 import './Filters.css';

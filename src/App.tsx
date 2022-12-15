@@ -1,55 +1,17 @@
-import { useMemo, useReducer, useState } from 'react';
 import { HeaderCta } from './components/header-cta/HeaderCta';
 import { HeaderInfo } from './components/header-info/HeaderInfo';
 import { List } from './components/list/List';
-import { initialEmployees } from './initialData/initialEmployees';
-import { IEmployee, ToggleableAchievement } from './interfaces/IEmployee';
-import { FilterValue } from './interfaces/IHeaderCta';
-import { IHeaderStats } from './interfaces/IHeaderStats';
-import { bindActions } from './reducer/actions';
-import { reducer } from './reducer/reducer';
-import { curry } from './utils/curry';
+import { useApp } from './hook/useApp';
 
-export const MIN_SALARY_FILTER_VALUE = 1_000;
 
 export const App = () => {
-  const [employees, dispatch] = useReducer(reducer, initialEmployees);
-
-  const [searchValue, setSearchValue] = useState('');
-  const [filterValue, setFilterValue] = useState<FilterValue>('all');
-
-  const qty = useMemo<IHeaderStats>(() => ({
-    qtyEmployees: employees.length,
-    qtyEmployeesWithBonus: employees.filter(employee => employee.bonus).length
-  }), [employees]);
-
-  const listForRender = useMemo<IEmployee[]>(() => {
-    const filterBySearchValue = (employees: IEmployee[]) => {
-      return employees.filter(({ name }) => name.toLowerCase().includes(searchValue));
-    };
-    const filterByAchievement = (achievement: ToggleableAchievement) => {
-      return employees.filter(employee => employee[achievement]);
-    };
-    const filterBySalary = (salary: number) => {
-      return employees.filter(employee => employee.salary > salary);
-    };
-    switch (filterValue) {
-      case 'award': return curry(filterBySearchValue)(filterByAchievement)('award');
-      // case 'bonus': return curry(filterBySearchValue)(filterByAchievement)('bonus');  
-      // button 'bonus' not implemented yet on Filters component
-      case 'salary': return curry(filterBySearchValue)(filterBySalary)(MIN_SALARY_FILTER_VALUE);
-      default:
-      case 'all': return filterBySearchValue(employees);
-    }
-  }, [employees, searchValue, filterValue]);
-
-  const employeeActions = useMemo(() => bindActions(dispatch), []);
+  const { filteredEmployees, qty, employeeActions, setSearchValue, setFilterValue } = useApp();
 
   return (
     <div className="app">
       <HeaderInfo {...qty} />
       <HeaderCta setFilterValue={setFilterValue} setSearchValue={setSearchValue} />
-      <List employees={listForRender} employeeActions={employeeActions} />
+      <List employees={filteredEmployees} employeeActions={employeeActions} />
 
     </div>
   );
