@@ -7,22 +7,20 @@ import { IEmployee, ToggleableAchievement } from './interfaces/IEmployee';
 import { FilterValue } from './interfaces/IHeaderCta';
 import { IHeaderStats } from './interfaces/IHeaderStats';
 import { bindActions } from './reducer/actions';
-import { initReducer } from './reducer/init';
 import { reducer } from './reducer/reducer';
 import { curry } from './utils/curry';
 
 export const MIN_SALARY_FILTER_VALUE = 1_000;
 
 export const App = () => {
-  // todo: переписать тип state в reducer - сделать его IEmployee[]
-  const [employees, dispatch] = useReducer(reducer, initialEmployees, initReducer);
+  const [employees, dispatch] = useReducer(reducer, initialEmployees);
 
   const [searchValue, setSearchValue] = useState('');
   const [filterValue, setFilterValue] = useState<FilterValue>('all');
 
   const qty = useMemo<IHeaderStats>(() => ({
-    qtyEmployees: employees.employees.length,
-    qtyEmployeesWithBonus: employees.employees.filter(employee => employee.bonus).length
+    qtyEmployees: employees.length,
+    qtyEmployeesWithBonus: employees.filter(employee => employee.bonus).length
   }), [employees]);
 
   const listForRender = useMemo<IEmployee[]>(() => {
@@ -30,10 +28,10 @@ export const App = () => {
       return employees.filter(({ name }) => name.toLowerCase().includes(searchValue));
     };
     const filterByAchievement = (achievement: ToggleableAchievement) => {
-      return employees.employees.filter(employee => employee[achievement]);
+      return employees.filter(employee => employee[achievement]);
     };
     const filterBySalary = (salary: number) => {
-      return employees.employees.filter(employee => employee.salary > salary);
+      return employees.filter(employee => employee.salary > salary);
     };
     switch (filterValue) {
       case 'award': return curry(filterBySearchValue)(filterByAchievement)('award');
@@ -41,7 +39,7 @@ export const App = () => {
       // button 'bonus' not implemented yet on Filters component
       case 'salary': return curry(filterBySearchValue)(filterBySalary)(MIN_SALARY_FILTER_VALUE);
       default:
-      case 'all': return filterBySearchValue(employees.employees);
+      case 'all': return filterBySearchValue(employees);
     }
   }, [employees, searchValue, filterValue]);
 

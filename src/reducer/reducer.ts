@@ -1,44 +1,29 @@
-// import { Action } from "../interfaces/IReducerActions";
-// import type { ReducerAction } from "../interfaces/IReducerActions";
-// import type { IReducerState } from "../interfaces/IReducerState";
 import { IEmployee } from "../interfaces/IEmployee";
 import { ActionType, ReducerAction } from "./actions";
 
-export interface IReducerState {
-	employees: IEmployee[];
-}
-
-export const reducer = (state: IReducerState, action: ReducerAction): IReducerState => {
+export const reducer = (state: IEmployee[], action: ReducerAction): IEmployee[] => {
 	switch (action.type) {
 		case ActionType.ToggleAchievement: {
 			const { id, achievement } = action.payload;
-			return {
-				employees: state.employees.map(employee => (employee.id === id)
-					? { ...employee, [achievement]: !employee[achievement] }
-					: employee
-				)
-			};
+			return state.map(employee => (employee.id === id)
+				? { ...employee, [achievement]: !employee[achievement] }
+				: employee
+			);
 		}
 		case ActionType.SetSalary: {
 			const { id, salary } = action.payload;
-			return {
-				employees: state.employees.map(employee => (employee.id === id)
-					? { ...employee, salary }
-					: employee
-				)
-			};
+			return state.map(employee => (employee.id === id)
+				? { ...employee, salary }
+				: employee
+			);
 		}
 		case ActionType.DeleteEmployee: {
 			const { id } = action.payload;
-			return {
-				employees: state.employees.filter(employee => employee.id !== id)
-			};
+			return state.filter(employee => employee.id !== id);
 		}
 		case ActionType.AddEmployee: {
 			const newEmployee = { ...action.payload, bonus: false, award: false };
-			return {
-				employees: [...state.employees, newEmployee]
-			};
+			return [...state, newEmployee];
 		}
 	}
 };
