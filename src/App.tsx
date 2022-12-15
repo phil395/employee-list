@@ -1,4 +1,4 @@
-import { useMemo, useReducer, useState } from 'react';
+import { useCallback, useMemo, useReducer, useState } from 'react';
 import { HeaderCta } from './components/header-cta/HeaderCta';
 import { HeaderInfo } from './components/header-info/HeaderInfo';
 import { List } from './components/list/List';
@@ -6,6 +6,7 @@ import { initialEmployees } from './initialData/initialEmployees';
 import { IEmployee, ToggleableAchievement } from './interfaces/IEmployee';
 import { FilterValue } from './interfaces/IHeaderCta';
 import { IHeaderStats } from './interfaces/IHeaderStats';
+import { bindActions } from './reducer/actions';
 import { initReducer } from './reducer/init';
 import { reducer } from './reducer/reducer';
 import { curry } from './utils/curry';
@@ -15,6 +16,7 @@ const MIN_SALARY_FILTER_VALUE = 1_000;
 export const App = () => {
   // todo: переписать тип state в reducer - сделать его IEmployee[]
   const [employees, dispatch] = useReducer(reducer, initialEmployees, initReducer);
+
   const [searchValue, setSearchValue] = useState('');
   const [filterValue, setFilterValue] = useState<FilterValue>('all');
 
@@ -41,6 +43,9 @@ export const App = () => {
       case 'all': return filterBySearchValue(employees.employees);
     }
   }, []);
+
+  const employeeActions = useMemo(() => bindActions(dispatch), []);
+
 
 
   return (
