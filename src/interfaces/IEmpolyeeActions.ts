@@ -1,6 +1,7 @@
 import { IEmployee } from "./IEmployee";
 
-type ToggleableAchievement = Extract<keyof IEmployee, 'bonus' | 'award'>;
+export type ToggleableAchievement = Extract<keyof IEmployee, 'bonus' | 'award'>;
+
 
 export interface IEmployeeActions {
 	toggleAchievement: (id: string, achievement: ToggleableAchievement) => void;
