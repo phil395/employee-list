@@ -1,9 +1,10 @@
-import { useMemo, useReducer, useState } from "react";
+import { useCallback, useMemo, useReducer, useState } from "react";
+import { EmployeeListActions } from "../components/list-item/ListItem";
 import { initialEmployees } from "../initialData/initialEmployees";
 import { IEmployee, ToggleableAchievement } from "../interfaces/IEmployee";
 import { FilterValue } from "../interfaces/IHeaderCta";
 import { IHeaderStats } from "../interfaces/IHeaderStats";
-import { bindActions } from "../reducer/actions";
+import { bindActions, BindedActions } from "../reducer/actions";
 import { reducer } from "../reducer/reducer";
 import { curry } from "../utils/curry";
 
@@ -40,12 +41,18 @@ export const useApp = () => {
 		}
 	}, [employees, searchValue, filterValue]);
 
-	const employeeActions = useMemo(() => bindActions(dispatch), []);
+	const employeeActions = useMemo<BindedActions>(() => bindActions(dispatch), [dispatch]);
+	const actionsForList = useMemo<EmployeeListActions>(() => {
+		const { toggleAchievement, setSalary, deleteEmployee } = employeeActions;
+		return { toggleAchievement, setSalary, deleteEmployee };
+	}, [employeeActions]);
+	const addEmployee = useCallback(employeeActions.addEmployee, [employeeActions]);
 
 	return {
 		filteredEmployees,
 		qty,
-		employeeActions,
+		actionsForList,
+		addEmployee,
 		setSearchValue,
 		setFilterValue
 	};

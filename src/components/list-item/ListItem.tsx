@@ -6,8 +6,10 @@ import type { BindedActions } from "../../reducer/actions";
 import './ListItem.css';
 import './icons-font/icons-font.css';
 
+export type EmployeeListActions = Pick<BindedActions, 'toggleAchievement' | 'setSalary' | 'deleteEmployee'>;
+
 interface Props extends IEmployee {
-	employeeActions: BindedActions;
+	employeeActions: EmployeeListActions;
 }
 
 export const ListItem: FC<Props> = ({

@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { ListItem } from "../list-item/ListItem";
+import { EmployeeListActions, ListItem } from "../list-item/ListItem";
 import type { IEmployee } from "../../interfaces/IEmployee";
 import type { BindedActions } from "../../reducer/actions";
 
@@ -7,7 +7,7 @@ import './List.css';
 
 interface Props {
 	employees: IEmployee[];
-	employeeActions: BindedActions;
+	employeeActions: EmployeeListActions;
 }
 
 export const List: FC<Props> = ({ employees, employeeActions }) => {
