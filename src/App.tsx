@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useReducer, useState } from 'react';
+import { useMemo, useReducer, useState } from 'react';
 import { HeaderCta } from './components/header-cta/HeaderCta';
 import { HeaderInfo } from './components/header-info/HeaderInfo';
 import { List } from './components/list/List';
@@ -37,7 +37,8 @@ export const App = () => {
     };
     switch (filterValue) {
       case 'award': return curry(filterBySearchValue)(filterByAchievement)('award');
-      // case 'bonus': return curry(filterBySearchValue)(filterByAchievement)('bonus');  // button not implemented yet
+      // case 'bonus': return curry(filterBySearchValue)(filterByAchievement)('bonus');  
+      // button 'bonus' not implemented yet on Filters component
       case 'salary': return curry(filterBySearchValue)(filterBySalary)(MIN_SALARY_FILTER_VALUE);
       default:
       case 'all': return filterBySearchValue(employees.employees);
@@ -46,13 +47,11 @@ export const App = () => {
 
   const employeeActions = useMemo(() => bindActions(dispatch), []);
 
-
-
   return (
     <div className="app">
       <HeaderInfo {...qty} />
       <HeaderCta setFilterValue={setFilterValue} setSearchValue={setSearchValue} />
-      {/* <List /> */}
+      <List employees={listForRender} employeeActions={employeeActions} />
 
     </div>
   );

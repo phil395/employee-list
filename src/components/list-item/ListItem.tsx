@@ -1,20 +1,22 @@
 import { FC } from "react";
 
 import type { IEmployee } from "../../interfaces/IEmployee";
-import type { IEmployeeActions } from "../../interfaces/IEmpolyeeActions";
+import type { BindedActions } from "../../reducer/actions";
 
 import './ListItem.css';
 import './icons-font/icons-font.css';
 
-interface Props extends IEmployee, Omit<IEmployeeActions, 'addEmployee'> { }
+interface Props extends IEmployee {
+	employeeActions: BindedActions;
+}
 
 export const ListItem: FC<Props> = ({
-	id, name, award, bonus, salary, setSalary, toggleAchievement, deleteEmployee
+	id, name, award, bonus, salary, employeeActions
 }) => {
 
 	const onChangeSalary: React.ChangeEventHandler<HTMLInputElement> = (e) => {
 		const newSalary = Number(e.target.value) || 0;
-		setSalary(id, newSalary);
+		employeeActions.setSalary({ id, salary: newSalary });
 	};
 
 	return (
@@ -34,11 +36,11 @@ export const ListItem: FC<Props> = ({
 			</div>
 			<div className="item__cta">
 				<span className="icon-money"
-					onClick={() => toggleAchievement(id, 'bonus')} />
+					onClick={() => employeeActions.toggleAchievement({ id, achievement: 'bonus' })} />
 				<span className="icon-award"
-					onClick={() => toggleAchievement(id, 'award')} />
+					onClick={() => employeeActions.toggleAchievement({ id, achievement: 'bonus' })} />
 				<span className="icon-bin"
-					onClick={() => deleteEmployee(id)} />
+					onClick={() => employeeActions.deleteEmployee({ id })} />
 			</div>
 		</li>
 	);
