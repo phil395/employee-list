@@ -4,6 +4,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+	margin-left: calc(100vw - 100%); // fix page jerking when scrollbar disappears
 }
 
 .app {
