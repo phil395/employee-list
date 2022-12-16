@@ -40,7 +40,7 @@ export const ListItem: FC<Props> = ({
 				<span className="icon-money"
 					onClick={() => employeeActions.toggleAchievement({ id, achievement: 'bonus' })} />
 				<span className="icon-award"
-					onClick={() => employeeActions.toggleAchievement({ id, achievement: 'bonus' })} />
+					onClick={() => employeeActions.toggleAchievement({ id, achievement: 'award' })} />
 				<span className="icon-bin"
 					onClick={() => employeeActions.deleteEmployee({ id })} />
 			</div>
