@@ -1,5 +1,6 @@
 import { IEmployee, ToggleableAchievement } from '../interfaces/IEmployee';
 import { curry } from '../utils/curry';
+import { getId } from '../utils/getId';
 
 export const enum ActionType {
 	ToggleAchievement,
@@ -23,9 +24,12 @@ const deleteEmployee = (payload: Pick<IEmployee, 'id'>) => ({
 	payload
 }) as const;
 
-const addEmployee = (payload: Pick<IEmployee, 'id' | 'name' | 'salary'>) => ({
+const addEmployee = (payload: Pick<IEmployee, 'name' | 'salary'>) => ({
 	type: ActionType.AddEmployee,
-	payload
+	payload: {
+		id: getId(),
+		...payload,
+	}
 }) as const;
 
 
