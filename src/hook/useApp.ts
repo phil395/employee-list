@@ -1,5 +1,4 @@
-import { useCallback, useMemo, useReducer, useState } from "react";
-import { EmployeeListActions } from "../components/list-item/ListItem";
+import { useMemo, useReducer, useState } from "react";
 import { initialEmployees } from "../initialData/initialEmployees";
 import { IEmployee, ToggleableAchievement } from "../interfaces/IEmployee";
 import { FilterValue } from "../interfaces/IHeaderCta";
@@ -41,12 +40,12 @@ export const useApp = () => {
 		}
 	}, [employees, searchValue, filterValue]);
 
-	const employeeActions = useMemo<BindedActions>(() => bindActions(dispatch), [dispatch]);
-	const actionsForList = useMemo<EmployeeListActions>(() => {
-		const { toggleAchievement, setSalary, deleteEmployee } = employeeActions;
-		return { toggleAchievement, setSalary, deleteEmployee };
-	}, [employeeActions]);
-	const addEmployee = useCallback(employeeActions.addEmployee, [employeeActions]);
+	const [actionsForList, addEmployee] = useMemo<
+		[Omit<BindedActions, 'addEmployee'>, BindedActions['addEmployee']]
+	>(() => {
+		const { toggleAchievement, setSalary, deleteEmployee, addEmployee } = bindActions(dispatch);
+		return [{ toggleAchievement, setSalary, deleteEmployee }, addEmployee];
+	}, [dispatch]);
 
 	return {
 		filteredEmployees,
