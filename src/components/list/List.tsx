@@ -1,7 +1,6 @@
 import { FC } from "react";
 import { EmployeeListActions, ListItem } from "../list-item/ListItem";
 import type { IEmployee } from "../../interfaces/IEmployee";
-import type { BindedActions } from "../../reducer/actions";
 
 import './List.css';
 

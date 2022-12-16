@@ -1,5 +1,5 @@
-import { IEmployee } from "../interfaces/IEmployee";
 import { ActionType, ReducerAction } from "./actions";
+import { IEmployee } from "../interfaces/IEmployee";
 
 export const reducer = (state: IEmployee[], action: ReducerAction): IEmployee[] => {
 	switch (action.type) {

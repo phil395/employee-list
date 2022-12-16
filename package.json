@@ -1,8 +1,15 @@
 {
   "name": "employee-list",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
+  "author": {
+    "name": "phil395"
+  },
+  "repository": {
+    "url": "https://github.com/phil395/employee-list",
+    "type": "git"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
