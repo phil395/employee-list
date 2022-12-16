@@ -1,0 +1,58 @@
+.add-new-employee {
+	background-color: var(--color-main);
+	border-radius: var(--border-radius);
+	padding: var(--padding-main-block);
+	color: var(--color-secondary);
+}
+
+.add-new-employee>*:not(:last-child) {
+	margin-bottom: var(--offset-element);
+}
+
+.add-new-employee h3 {
+	font-size: calc(13px + 2vmin);
+}
+
+.add-new-employee form {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.add-new-employee form>* {
+	line-height: 1;
+	padding: calc(9px + 0.5vmin);
+	border-radius: var(--border-radius);
+}
+
+.add-new-employee form button {
+	border: 1px solid var(--color-secondary);
+	padding-left: calc(10px + 1vmin);
+	padding-right: calc(10px + 1vmin);
+}
+
+@media (min-width: 625px) {
+	.add-new-employee form>*:not(:last-child) {
+		margin-right: var(--offset-element);
+	}
+}
+
+@media (min-width: 625px) and (max-width: 770px) {
+	.add-new-employee form input {
+		width: 200px;
+	}
+}
+
+@media (max-width: 624px) {
+	.add-new-employee form {
+		flex-direction: column;
+	}
+
+
+	.add-new-employee form>* {
+		width: 100%;
+	}
+
+	.add-new-employee form>*:not(:last-child) {
+		margin-bottom: var(--offset-element);
+	}
+}
