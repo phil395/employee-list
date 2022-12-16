@@ -1,16 +1,18 @@
-import { useMemo, useReducer, useState } from "react";
+import { useEffect, useMemo, useReducer, useState } from "react";
 import { initialEmployees } from "../initialData/initialEmployees";
-import { IEmployee, ToggleableAchievement } from "../interfaces/IEmployee";
+import { initReducer } from "../reducer/init";
+import { reducer } from "../reducer/reducer";
+import { bindActions } from "../reducer/actions";
+import { LocalStorage } from "../services/storage";
+import { curry } from "../utils/curry";
 import { FilterValue } from "../interfaces/IHeaderCta";
 import { IHeaderStats } from "../interfaces/IHeaderStats";
-import { bindActions, BindedActions } from "../reducer/actions";
-import { reducer } from "../reducer/reducer";
-import { curry } from "../utils/curry";
+import { IEmployee, ToggleableAchievement } from "../interfaces/IEmployee";
 
 export const MIN_SALARY_FILTER_VALUE = 1_000;
 
 export const useApp = () => {
-	const [employees, dispatch] = useReducer(reducer, initialEmployees);
+	const [employees, dispatch] = useReducer(reducer, initialEmployees, initReducer);
 
 	const [searchValue, setSearchValue] = useState('');
 	const [filterValue, setFilterValue] = useState<FilterValue>('all');
@@ -40,12 +42,14 @@ export const useApp = () => {
 		}
 	}, [employees, searchValue, filterValue]);
 
-	const [actionsForList, addEmployee] = useMemo<
-		[Omit<BindedActions, 'addEmployee'>, BindedActions['addEmployee']]
-	>(() => {
+	const [actionsForList, addEmployee] = useMemo(() => {
 		const { toggleAchievement, setSalary, deleteEmployee, addEmployee } = bindActions(dispatch);
-		return [{ toggleAchievement, setSalary, deleteEmployee }, addEmployee];
+		return [{ toggleAchievement, setSalary, deleteEmployee }, addEmployee] as const;
 	}, [dispatch]);
+
+	useEffect(() => {
+		LocalStorage.set('employees', employees);
+	}, [employees]);
 
 	return {
 		filteredEmployees,
