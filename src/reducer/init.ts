@@ -1,8 +1,8 @@
 import { IEmployee } from "../interfaces/IEmployee";
-import { LocalStorage } from "../services/storage";
+import { localStorage } from "../services/storage";
 
 export const initReducer = (initialEmployees: IEmployee[]) => {
-	const storedEmployee = LocalStorage.get<IEmployee[]>('employees');
+	const storedEmployee = localStorage.get<IEmployee[]>('employees');
 
 	return storedEmployee ? storedEmployee : initialEmployees;
 };

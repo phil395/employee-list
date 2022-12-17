@@ -3,7 +3,7 @@ import { initialEmployees } from "../initialData/initialEmployees";
 import { initReducer } from "../reducer/init";
 import { reducer } from "../reducer/reducer";
 import { bindActions } from "../reducer/actions";
-import { LocalStorage } from "../services/storage";
+import { localStorage } from "../services/storage";
 import { curry } from "../utils/curry";
 import { FilterValue } from "../interfaces/IHeaderCta";
 import { IHeaderStats } from "../interfaces/IHeaderStats";
@@ -48,7 +48,7 @@ export const useApp = () => {
 	}, [dispatch]);
 
 	useEffect(() => {
-		LocalStorage.set('employees', employees);
+		localStorage.set('employees', employees);
 	}, [employees]);
 
 	return {

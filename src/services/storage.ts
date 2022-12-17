@@ -1,41 +1,39 @@
-export class LocalStorage {
-	private static storage?: Storage;
+export class ClientStorage<Keys extends readonly [string, ...string[]]> {
+	private storage?: Storage;
 
-	static {
+	constructor(storageType: 'session' | 'local' = 'local') {
 		try {
-			LocalStorage.storage = window.localStorage;
+			this.storage = storageType === 'session'
+				? window.sessionStorage
+				: window.localStorage;
 		} catch (error) { }
 	}
 
-	public static get<T>(key: string) {
-		if (!LocalStorage.storage) return;
+	public get<Data>(key: Keys[number]) {
+		if (!this.storage) return;
 
-		const serializedValue = LocalStorage.storage.getItem(key);
+		const serializedValue = this.storage.getItem(key);
 
 		if (!serializedValue) return;
 
 		try {
-			return JSON.parse(serializedValue) as T;
+			return JSON.parse(serializedValue) as Data;
 		} catch (error) { }
 	}
 
-	public static set(key: string, value: unknown) {
-		if (!LocalStorage.storage) return;
+	public set(key: Keys[number], value: unknown) {
+		if (!this.storage) return;
 
 		if (typeof value === 'string') {
-			LocalStorage.storage.setItem(key, value);
+			this.storage.setItem(key, value);
 			return;
 		}
 
 		try {
 			const serializedValue = JSON.stringify(value);
-			LocalStorage.storage.setItem(key, serializedValue);
+			this.storage.setItem(key, serializedValue);
 		} catch (error) { }
 	}
-
-	public static clear() {
-		if (!LocalStorage.storage) return;
-
-		LocalStorage.storage.clear();
-	}
 }
+
+export const localStorage = new ClientStorage<['employees']>();
