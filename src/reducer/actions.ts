@@ -33,7 +33,7 @@ const actions = {
 };
 
 
-type ActionsMap = {
+export type ActionsMap = {
 	[Property in keyof typeof actions]: typeof actions[Property]
 };
 

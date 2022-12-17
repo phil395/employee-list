@@ -1,10 +1,10 @@
 import { FC, useState } from "react";
-import { BindedActions } from "../../reducer/actions";
+import { ActionsMap } from "../../reducer/actions";
 
 import './AddEmployee.css';
 
 interface Props {
-	addEmployee: BindedActions['addEmployee'];
+	addEmployee: ActionsMap['addEmployee'];
 }
 
 export const AddEmployee: FC<Props> = ({ addEmployee }) => {

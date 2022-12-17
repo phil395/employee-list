@@ -34,9 +34,21 @@ export const Filters: FC<Props> = ({ setFilterValue }) => {
 
 	return (
 		<div className="filter-btns">
-			<Btn filterValue="all" onClick={onClick} activeFilter={activeFilter} text="Все сотрудники" />
-			<Btn filterValue="award" onClick={onClick} activeFilter={activeFilter} text="На повышение" />
-			<Btn filterValue="salary" onClick={onClick} activeFilter={activeFilter} text={`з/п больше $${MIN_SALARY_FILTER_VALUE}`} />
+			<Btn filterValue="all"
+				onClick={onClick}
+				activeFilter={activeFilter}
+				text="Все сотрудники"
+			/>
+			<Btn filterValue="award"
+				onClick={onClick}
+				activeFilter={activeFilter}
+				text="На повышение"
+			/>
+			<Btn filterValue="salary"
+				onClick={onClick}
+				activeFilter={activeFilter}
+				text={`з/п больше $${MIN_SALARY_FILTER_VALUE}`}
+			/>
 		</div>
 	);
 };

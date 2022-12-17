@@ -1,12 +1,12 @@
 import { FC } from "react";
 
 import type { IEmployee } from "../../interfaces/IEmployee";
-import type { BindedActions } from "../../reducer/actions";
+import type { ActionsMap } from "../../reducer/actions";
 
 import './ListItem.css';
 import './icons-font/icons-font.css';
 
-export type EmployeeListActions = Pick<BindedActions, 'toggleAchievement' | 'setSalary' | 'deleteEmployee'>;
+export type EmployeeListActions = Pick<ActionsMap, 'toggleAchievement' | 'setSalary' | 'deleteEmployee'>;
 
 interface Props extends IEmployee {
 	employeeActions: EmployeeListActions;
