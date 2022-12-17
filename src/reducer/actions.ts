@@ -9,51 +9,40 @@ export const enum ActionType {
 	AddEmployee
 }
 
-const toggleAchievement = (payload: { id: IEmployee['id'], achievement: ToggleableAchievement; }) => ({
-	type: ActionType.ToggleAchievement,
-	payload
-}) as const;
 
-const setSalary = (payload: Pick<IEmployee, 'id' | 'salary'>) => ({
-	type: ActionType.SetSalary,
-	payload
-}) as const;
-
-const deleteEmployee = (payload: Pick<IEmployee, 'id'>) => ({
-	type: ActionType.DeleteEmployee,
-	payload
-}) as const;
-
-const addEmployee = (payload: Pick<IEmployee, 'name' | 'salary'>) => ({
-	type: ActionType.AddEmployee,
-	payload: {
-		id: getId(),
-		...payload,
-	}
-}) as const;
-
-
-export const bindActions = (dispatch: React.Dispatch<ReducerAction>) => {
-	return {
-		toggleAchievement: curry(dispatch)(toggleAchievement) as ToggleAchievementActionCreator,
-		setSalary: curry(dispatch)(setSalary) as SetSalaryActionCreator,
-		deleteEmployee: curry(dispatch)(deleteEmployee) as DeleteEmployeeActionCreator,
-		addEmployee: curry(dispatch)(addEmployee) as AddEmployeeActionCreator
-	};
+const actions = {
+	toggleAchievement: (payload: { id: IEmployee['id'], achievement: ToggleableAchievement; }) => ({
+		type: ActionType.ToggleAchievement,
+		payload
+	}) as const,
+	setSalary: (payload: Pick<IEmployee, 'id' | 'salary'>) => ({
+		type: ActionType.SetSalary,
+		payload
+	}) as const,
+	deleteEmployee: (payload: Pick<IEmployee, 'id'>) => ({
+		type: ActionType.DeleteEmployee,
+		payload
+	}) as const,
+	addEmployee: (payload: Pick<IEmployee, 'name' | 'salary'>) => ({
+		type: ActionType.AddEmployee,
+		payload: {
+			id: getId(),
+			...payload,
+		}
+	}) as const
 };
 
 
-// types
+type ActionsMap = {
+	[Property in keyof typeof actions]: typeof actions[Property]
+};
 
-type ToggleAchievementActionCreator = typeof toggleAchievement;
-type SetSalaryActionCreator = typeof setSalary;
-type DeleteEmployeeActionCreator = typeof deleteEmployee;
-type AddEmployeeActionCreator = typeof addEmployee;
+export const bindActions = (dispatch: React.Dispatch<ReducerAction>) => {
+	const mappedEntries = Object.entries(actions).map(([actionName, action]) => {
+		return [actionName, curry(dispatch)(action)];
+	});
+	return Object.fromEntries(mappedEntries) as ActionsMap;
+};
 
-type ToggleAchievementAction = ReturnType<ToggleAchievementActionCreator>;
-type SetSalaryAction = ReturnType<SetSalaryActionCreator>;
-type DeleteEmployeeAction = ReturnType<DeleteEmployeeActionCreator>;
-type AddEmployeeAction = ReturnType<AddEmployeeActionCreator>;
 
-export type ReducerAction = ToggleAchievementAction | SetSalaryAction | DeleteEmployeeAction | AddEmployeeAction;
-export type BindedActions = ReturnType<typeof bindActions>;
+export type ReducerAction = ReturnType<(typeof actions)[keyof typeof actions]>;
